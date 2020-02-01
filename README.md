@@ -1,31 +1,67 @@
-# Adonis fullstack application
+# Adonis Email Microservice
 
-This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.
+Basic webserver with views for generating emails for a back end.
 
-1. Bodyparser
-2. Session
-3. Authentication
-4. Web security middleware
-5. CORS
-6. Edge template engine
-7. Lucid ORM
-8. Migrations and seeds
+Views are parsed to inline the CSS and minify the HTML
 
-## Setup
+## Example
 
-Use the adonis command to install the blueprint
+View:
 
-```bash
-adonis new yardstick
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <style lang="css">
+        body {
+            padding: 20px;
+            margin: 0;
+            font-family: sans-serif;
+            background: #eee;
+        }
+
+        .welcome {
+            text-align: center;
+        }
+
+        @media screen and (min-width: 500px) {
+            body {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome">
+        <p>Welcome to our app {{ firstName }}!</p>
+
+        <p>You can now <a href="/login">login</a>
+    </div>
+</body>
+</html>
 ```
 
-or manually clone the repo and then run `npm install`.
+Inlined:
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <style lang="css">@media screen and (min-width:500px){body{font-size:1.2em}}</style>
+   </head>
+   <body style="background:#eee;font-family:sans-serif;margin:0;padding:20px">
+      <div class="welcome" style="text-align:center">
+         <p>Welcome to our app Sam!</p>
+         <p>You can now <a href="/login">login</a> </p>
+      </div>
+   </body>
+</html>
+```
 
-### Migrations
+Final Output:
 
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
+```html
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <style lang="css">@media screen and (min-width:500px){body{font-size:1.2em}}</style> </head> <body style="background:#eee;font-family:sans-serif;margin:0;padding:20px"> <div class="welcome" style="text-align:center"> <p>Welcome to our app Sam!</p> <p>You can now <a href="/login">login</a> </p></div> </body> </html>
 ```
