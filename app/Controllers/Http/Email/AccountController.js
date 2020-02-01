@@ -1,12 +1,26 @@
 'use strict'
 
+const inlineCss = require('inline-css');
+const { minify } = require('html-minifier');
+
 class AccountController {
-    welcome({ request, view }) {
+    async welcome({ request, view }) {
         view.share({
             ...request.only(['firstName']),
         });
 
-        return view.render('email.account.welcome');
+        const html = view.render('email.account.welcome');
+
+        const inlinined = await inlineCss(html, {
+            url: 'http://example.com',
+            preserveMediaQueries: true,
+        });
+
+        return minify(inlinined, {
+            minifyCSS: true,
+            collapseWhitespace: true,
+            conservativeCollapse: true,
+        });
     }
 }
 
