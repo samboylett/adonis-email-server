@@ -16,4 +16,4 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/email/account/welcome', 'Email/AccountController.welcome');
+Route.get('/email/account/welcome', 'Email/AccountController.welcome').middleware('email');
